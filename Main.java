@@ -9,10 +9,23 @@ public class Main extends CustomerManager {
             System.out.println("\nCustomer Management System\n");
             System.out.println("1. Add Customer\n2. Remove Customer\n3. Update Customer\n4. List Customers\n5. Exit");
             System.out.println();
-            System.out.print("Which Operation Would You Like To Perform: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println();
+
+            int choice;
+
+            while(true) {
+                System.out.print("Which Operation Would You Like To Perform (1/2/3/4/5): ");
+                if (scanner.hasNextInt()) {
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } else {
+                    System.out.println();
+                    System.out.println("Invalid Input. Please Enter An Appropriate Value.");
+                    System.out.println();
+                    scanner.nextLine();
+                }
+            }
+
 
             switch (choice) {
                 case 1:
@@ -32,9 +45,11 @@ public class Main extends CustomerManager {
                     System.exit(0);
                     break;
                 default:
-                    System.out.print("Invalid Choice. Please Enter A Number 1 -> 5: ");
+                    System.out.println();
+                    System.out.print("Invalid Input. Please Enter An Appropriate Value (1/2/3/4/5).");
+                    System.out.println();
+                    break;
             }
-
         }
     }
     private static void addCustomer(Scanner scanner, CustomerManager manager) {
