@@ -52,6 +52,6 @@ public class Customer {
                 "ID='" + customerID + '\'' +
                 ", Name='" + firstName + '\'' +
                 ", Surname='" + lastName + '\'' +
-                ", email='" + email + '\'';
+                ", Email='" + email + '\'';
     }
 }

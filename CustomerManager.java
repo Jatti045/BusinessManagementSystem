@@ -2,7 +2,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerManager {
-    private final Map<Integer, Customer> customerMap = new HashMap<>();
+
+    final Map<Integer, Customer> customerMap = new HashMap<>();
 
     public void addCustomer(Customer addCustomer) {
         customerMap.put(addCustomer.getCustomerID(), addCustomer);
@@ -11,9 +12,15 @@ public class CustomerManager {
     }
 
     public void removeCustomer(int removeCustomer) {
-        customerMap.remove(removeCustomer);
-        System.out.println();
-        System.out.println("Customer Successfully Removed.");
+        if(customerMap.containsKey(removeCustomer)) {
+            customerMap.remove(removeCustomer);
+            System.out.println();
+            System.out.println("Customer Successfully Removed.");
+        } else {
+            System.out.println();
+            System.out.println("A Customer With This ID Does Not Exist.");
+        }
+
     }
 
     public void updateCustomer(Customer updatedCustomer) {

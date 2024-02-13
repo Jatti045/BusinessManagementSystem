@@ -19,9 +19,7 @@ public class Main extends CustomerManager {
                     scanner.nextLine();
                     break;
                 } else {
-                    System.out.println();
-                    System.out.println("Invalid Input. Please Enter An Appropriate Value.");
-                    System.out.println();
+                    System.out.println("\nInvalid Input. Please Enter An Appropriate Value.\n");
                     scanner.nextLine();
                 }
             }
@@ -45,25 +43,36 @@ public class Main extends CustomerManager {
                     System.exit(0);
                     break;
                 default:
-                    System.out.println();
-                    System.out.print("Invalid Input. Please Enter An Appropriate Value (1/2/3/4/5).");
-                    System.out.println();
+                    System.out.print("\nInvalid Input. Please Enter An Appropriate Value (1/2/3/4/5).\n");
                     break;
             }
         }
     }
     private static void addCustomer(Scanner scanner, CustomerManager manager) {
-        System.out.print("Enter Customer ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Enter First Name: ");
+        int ID = -1;
+        while (true) {
+            System.out.print("Enter Customer ID: ");
+            if (scanner.hasNextInt()) {
+                ID = scanner.nextInt();
+                scanner.nextLine();
+                if (manager.customerMap.containsKey(ID)) {
+                    System.out.println("\nA Customer With This ID Already Exists.");
+                } else {
+                    break;
+                }
+            } else {
+                System.out.println("Invalid Input. Customer ID Must Be An Integer.");
+                scanner.nextLine();
+            }
+        }
+        System.out.print("Enter Customer First Name: ");
         String firstName = scanner.nextLine();
-        System.out.print("Enter Last Name: ");
+        System.out.print("Enter Customer Last Name: ");
         String lastName = scanner.nextLine();
-        System.out.print("Enter Email: ");
+        System.out.print("Enter Customer Email: ");
         String email = scanner.nextLine();
 
-        Customer customer = new Customer(id, firstName, lastName, email);
+        Customer customer = new Customer(ID, firstName, lastName, email);
         manager.addCustomer(customer);
     }
 
@@ -78,11 +87,11 @@ public class Main extends CustomerManager {
         System.out.print("Enter The ID Of The Customer You Would Like To Update: ");
         int id = scanner.nextInt();
         scanner.nextLine();
-        System.out.print("Enter First Name: ");
+        System.out.print("Enter Customer First Name: ");
         String firstName = scanner.nextLine();
-        System.out.print("Enter Last Name: ");
+        System.out.print("Enter Customer Last Name: ");
         String lastName = scanner.nextLine();
-        System.out.print("Enter Email: ");
+        System.out.print("Enter Customer Email: ");
         String email = scanner.nextLine();
 
         Customer updatedCustomer = new Customer(id, firstName, lastName, email);
