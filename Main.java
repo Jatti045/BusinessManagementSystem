@@ -77,10 +77,25 @@ public class Main extends CustomerManager {
     }
 
     private static void removeCustomer(Scanner scanner, CustomerManager manager) {
-        System.out.print("Enter The ID Of The Customer You Would Like To Remove: ");
-        int ID = scanner.nextInt();
-        scanner.nextLine();
-        manager.removeCustomer(ID);
+        int ID;
+        while (true) {
+            System.out.print("Enter The ID Of The Customer You Would Like To Remove: ");
+            if (scanner.hasNextInt()) {
+                ID = scanner.nextInt();
+                scanner.nextLine();
+
+                if (manager.customerMap.containsKey(ID)) {
+                    manager.removeCustomer(ID);
+                } else {
+                    System.out.println("\nA Customer With This ID Does Not Exist.\n");
+                    break;
+                }
+            } else {
+                System.out.println("Invalid Input. Customer ID Must Be An Integer.");
+                scanner.nextLine();
+                break;
+            }
+        }
     }
 
     private static void updateCustomer(Scanner scanner, CustomerManager manager) {
@@ -96,5 +111,9 @@ public class Main extends CustomerManager {
 
         Customer updatedCustomer = new Customer(id, firstName, lastName, email);
         manager.updateCustomer(updatedCustomer);
+    }
+
+    private static void validateCustomerId() {
+
     }
 }
