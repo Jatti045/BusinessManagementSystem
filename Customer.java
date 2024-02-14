@@ -55,3 +55,6 @@ public class Customer {
                 ", Email='" + email + '\'';
     }
 }
+//public static returntype name(parameter) {
+//      Write your code
+// }

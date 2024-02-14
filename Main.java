@@ -43,7 +43,7 @@ public class Main extends CustomerManager {
                     System.exit(0);
                     break;
                 default:
-                    System.out.print("\nInvalid Input. Please Enter An Appropriate Value (1/2/3/4/5).\n");
+                    System.out.print("\nInvalid Input.\n");
                     break;
             }
         }
@@ -56,7 +56,7 @@ public class Main extends CustomerManager {
                 ID = scanner.nextInt();
                 scanner.nextLine();
                 if (manager.customerMap.containsKey(ID)) {
-                    System.out.println("\nA Customer With This ID Already Exists.");
+                    System.out.println("\nA Customer With This ID Already Exists.\n");
                 } else {
                     break;
                 }
