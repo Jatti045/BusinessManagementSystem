@@ -5,10 +5,11 @@ public class Main extends CustomerManager {
         CustomerManager manager = new CustomerManager();
         Scanner scanner = new Scanner(System.in);
 
+        manager.loadDataFromFile("Customers.JSON");
+
         while (true) {
             System.out.println("\nCustomer Management System\n");
-            System.out.println("1. Add Customer\n2. Remove Customer\n3. Update Customer\n4. List Customers\n5. Exit");
-            System.out.println();
+            System.out.println("1. Add Customer\n2. Remove Customer\n3. Update Customer\n4. List Customers\n5. Save And Exit\n");
 
             int choice;
 
@@ -39,7 +40,7 @@ public class Main extends CustomerManager {
                     manager.listCustomers();
                     break;
                 case 5:
-                    System.out.println("Saving Existing Data...");
+                    manager.saveDataToFile("Customers.JSON");
                     System.exit(0);
                     break;
                 default:
@@ -79,15 +80,16 @@ public class Main extends CustomerManager {
     private static void removeCustomer(Scanner scanner, CustomerManager manager) {
         int ID;
         while (true) {
-            System.out.print("Enter The ID Of The Customer You Would Like To Remove: ");
+            System.out.print("\nEnter The ID Of The Customer You Would Like To Remove: ");
             if (scanner.hasNextInt()) {
                 ID = scanner.nextInt();
                 scanner.nextLine();
 
                 if (manager.customerMap.containsKey(ID)) {
                     manager.removeCustomer(ID);
+                    break;
                 } else {
-                    System.out.println("\nA Customer With This ID Does Not Exist.\n");
+                    System.out.println("\nA Customer With This ID Does Not Exist.");
                     break;
                 }
             } else {
@@ -113,7 +115,4 @@ public class Main extends CustomerManager {
         manager.updateCustomer(updatedCustomer);
     }
 
-    private static void validateCustomerId() {
-
-    }
 }
