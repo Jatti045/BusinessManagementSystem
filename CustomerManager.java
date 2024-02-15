@@ -35,6 +35,10 @@ public class CustomerManager {
             customerMap.values().forEach(System.out::println);
     }
 
+    public Customer getCustomerById(int id) {
+        return null;
+        //Write Program;
+    }
     public void saveDataToFile(String filename) {
         try (FileWriter writer = new FileWriter(filename)) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
