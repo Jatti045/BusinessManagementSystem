@@ -1,1 +1,8 @@
-{}
+{
+  "1": {
+    "customerID": 1,
+    "firstName": "James",
+    "lastName": "Attia",
+    "email": "James.atttia@gmail.com"
+  }
+}

@@ -41,7 +41,7 @@ public class Main extends CustomerManager {
 
     private static void addCustomer(Scanner scanner, CustomerManager manager) {
 
-        int ID = getValidID();
+        int ID = getValidID(manager);
 
         String promtFirstName = "Enter Customer First Name: ";
         String promptFirstNameError = "Invalid first name.";
@@ -168,10 +168,9 @@ public class Main extends CustomerManager {
             }
         }
     }
-    public static int getValidID() {
+    public static int getValidID(CustomerManager manager) {
 
         Scanner scanner = new Scanner(System.in);
-        CustomerManager manager = new CustomerManager();
 
         int ID = -1;
         while (true) {
