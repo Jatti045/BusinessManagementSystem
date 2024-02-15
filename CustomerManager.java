@@ -31,7 +31,8 @@ public class CustomerManager {
     }
 
     public void listCustomers() {
-        customerMap.values().forEach(System.out::println);
+            System.out.println();
+            customerMap.values().forEach(System.out::println);
     }
 
     public void saveDataToFile(String filename) {
@@ -55,6 +56,5 @@ public class CustomerManager {
         }
     }
 }
-
 
 
