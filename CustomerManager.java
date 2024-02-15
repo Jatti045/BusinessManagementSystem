@@ -35,15 +35,14 @@ public class CustomerManager {
             customerMap.values().forEach(System.out::println);
     }
 
-    public Customer getCustomerById(int id) {
-        return null;
-        //Write Program;
+    public Customer getCustomerById(int ID) {
+        return customerMap.get(ID);
     }
     public void saveDataToFile(String filename) {
         try (FileWriter writer = new FileWriter(filename)) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(customerMap, writer);
-            System.out.println("\nSaving Existing Data...\n");
+            System.out.println("\nData successfully saved. Exiting system...\n");
         } catch (IOException e) {
             System.out.println("Error saving data: " + e.getMessage());
         }
@@ -53,7 +52,7 @@ public class CustomerManager {
         try (FileReader reader = new FileReader(filename)) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             TypeToken<Map<Integer, Customer>> typeToken = new TypeToken<>() {};
-            customerMap = gson.fromJson(reader, typeToken);
+            customerMap = gson.fromJson(reader, typeToken.getType());
             System.out.println("\nData Successfully Loaded.\n");
         } catch (IOException e) {
             System.out.println("Error loading data: " + e.getMessage());

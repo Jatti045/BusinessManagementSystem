@@ -10,7 +10,7 @@ public class Main extends CustomerManager {
         manager.loadDataFromFile("Customers.JSON");
 
         while (true) {
-            System.out.println("\nCustomer Management System\n");
+            System.out.println("\n=== Customer Management System ===\n");
             System.out.println("1. Add Customer\n2. Remove Customer\n3. Update Customer\n4. List Customers\n5. Save And Exit\n");
 
             int choice = operation();
@@ -33,7 +33,7 @@ public class Main extends CustomerManager {
                     System.exit(0);
                     break;
                 default:
-                    System.out.print("\nInvalid Input.\n");
+                    System.out.print("\nInvalid option selected. Please enter a number between 1 and 5.\n");
                     break;
             }
         }
@@ -83,15 +83,70 @@ public class Main extends CustomerManager {
     //Under Build
 
     private static void updateCustomer(Scanner scanner, CustomerManager manager) {
-        System.out.print("Enter The ID Of The Customer You Would Like To Update: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Enter Customer First Name: ");
-        String firstName = scanner.nextLine();
-        System.out.print("Enter Customer Last Name: ");
-        String lastName = scanner.nextLine();
-        System.out.print("Enter Customer Email: ");
-        String email = scanner.nextLine();
+
+        int id;
+        while(true) {
+            System.out.print("\nEnter The ID Of The Customer You Would Like To Update: ");
+            if (scanner.hasNextInt()) {
+                id = scanner.nextInt();
+                scanner.nextLine();
+                break;
+            } else {
+                System.out.println("\nInvalid Input. Please enter an appropriate Customer ID.\n");
+                scanner.nextLine();
+            }
+        }
+
+        Customer existingCustomer = manager.getCustomerById(id);
+        if (existingCustomer == null) {
+            System.out.println("\nCustomer with ID " + id + " does not exist.\n");
+            return;
+        }
+
+        String firstName = null;
+        while(true) {
+            System.out.print("Enter Customer First Name: ");
+            String input = scanner.nextLine();
+
+            if(input.matches("[a-zA-Z]+")) {
+                firstName = input;
+                break;
+            } else if (input.isEmpty()) {
+                firstName = existingCustomer.getFirstName();
+                break;
+            } else {
+                System.out.println("Invalid FirstName. Please Try Again.");
+            }
+        }
+
+        String lastName = null;
+        while(true) {
+            System.out.print("Enter Customer Surname: ");
+            String input = scanner.nextLine();
+
+            if(input.matches("[a-zA-Z]+")) {
+                lastName = input;
+                break;
+            } else if (input.isEmpty()) {
+                lastName = existingCustomer.getLastName();
+                break;
+            } else {
+                System.out.println("Invalid Surname. Please Try Again.");
+            }
+        }
+        String email = null;
+        while(true) {
+            System.out.print("Enter Customer Email: ");
+            email = scanner.nextLine();
+
+            if(email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")){
+                break;
+            } else if (email.isEmpty()) {
+                email = existingCustomer.getEmail();
+            } else {
+                System.out.println("Invalid Email. Please Try Again");
+            }
+        }
 
         Customer updatedCustomer = new Customer(id, firstName, lastName, email);
         manager.updateCustomer(updatedCustomer);
@@ -136,6 +191,22 @@ public class Main extends CustomerManager {
         }
     }
 
+    public static String getValidString(String prompt, String promptError) {
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            final String IS_VALID = "[a-zA-Z]+";
+
+            System.out.print(prompt);
+            String input = scanner.nextLine();
+
+            if (input.matches(IS_VALID)) {
+                return input;
+            } else {
+                System.out.println(promptError);
+            }
+        }
+    }
+
     public static String getValidEmail() {
         Scanner scanner = new Scanner(System.in);
         final String EMAIL_PATTERN = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -154,19 +225,4 @@ public class Main extends CustomerManager {
         }
     }
 
-    public static String getValidString(String prompt, String promptError) {
-        while (true) {
-            Scanner scanner = new Scanner(System.in);
-            final String IS_VALID = "[a-zA-Z]+";
-
-            System.out.print(prompt);
-            String input = scanner.nextLine();
-
-            if (input.matches(IS_VALID)) {
-                return input;
-            } else {
-                System.out.println(promptError);
-            }
-        }
-    }
 }

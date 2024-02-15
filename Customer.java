@@ -50,7 +50,7 @@ public class Customer {
     public String toString() {
         return "Customer: " +
                 "ID='" + customerID + '\'' +
-                ", Name='" + firstName + '\'' +
+                ", First Name='" + firstName + '\'' +
                 ", Surname='" + lastName + '\'' +
                 ", Email='" + email + '\'';
     }
