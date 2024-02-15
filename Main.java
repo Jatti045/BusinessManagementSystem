@@ -12,18 +12,8 @@ public class Main extends CustomerManager {
         while (true) {
             System.out.println("\nCustomer Management System\n");
             System.out.println("1. Add Customer\n2. Remove Customer\n3. Update Customer\n4. List Customers\n5. Save And Exit\n");
-            int choice;
-            while (true) {
-                System.out.print("Which Operation Would You Like To Perform (1/2/3/4/5): ");
-                if (scanner.hasNextInt()) {
-                    choice = scanner.nextInt();
-                    scanner.nextLine();
-                    break;
-                } else {
-                    System.out.println("\nInvalid Input. Please Enter An Appropriate Value.\n");
-                    scanner.nextLine();
-                }
-            }
+
+            int choice = operation();
 
             switch (choice) {
                 case 1:
@@ -50,29 +40,21 @@ public class Main extends CustomerManager {
     }
 
     private static void addCustomer(Scanner scanner, CustomerManager manager) {
-        int ID = -1;
-        while (true) {
-            System.out.print("Enter Customer ID: ");
-            if (scanner.hasNextInt()) {
-                ID = scanner.nextInt();
-                scanner.nextLine();
-                if (manager.customerMap.containsKey(ID)) {
-                    System.out.println("\nA Customer With This ID Already Exists.\n");
-                } else {
-                    break;
-                }
-            } else {
-                System.out.println("Invalid Input. Customer ID Must Be An Integer.");
-                scanner.nextLine();
-            }
-        }
-        System.out.print("Enter Customer First Name: ");
-        String firstName = scanner.nextLine();
-        System.out.print("Enter Customer Last Name: ");
-        String lastName = scanner.nextLine();
+
+        int ID = getValidID();
+
+        String promtFirstName = "Enter Customer First Name: ";
+        String promptFirstNameError = "Invalid FirstName. Please Try Again.";
+        String firstName = getValidString(promtFirstName, promptFirstNameError);
+
+        String promptSurname = "Enter Customer Surname: ";
+        String promptSurnameError = "Invalid Surname. Please Try Again.";
+        String lastName = getValidString(promptSurname, promptSurnameError);
+
         String email = getValidEmail();
 
         Customer customer = new Customer(ID, firstName, lastName, email);
+
         manager.addCustomer(customer);
     }
 
@@ -98,6 +80,8 @@ public class Main extends CustomerManager {
         }
     }
 
+    //Under Build
+
     private static void updateCustomer(Scanner scanner, CustomerManager manager) {
         System.out.print("Enter The ID Of The Customer You Would Like To Update: ");
         int id = scanner.nextInt();
@@ -113,20 +97,75 @@ public class Main extends CustomerManager {
         manager.updateCustomer(updatedCustomer);
     }
 
+    public static int operation() {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+        while (true) {
+            System.out.print("Which Operation Would You Like To Perform (1/2/3/4/5): ");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                return choice;
+            } else {
+                System.out.println("\nInvalid Input. Please Enter An Appropriate Value.\n");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static int getValidID() {
+
+        Scanner scanner = new Scanner(System.in);
+        CustomerManager manager = new CustomerManager();
+
+        int ID = -1;
+        while (true) {
+            System.out.print("Enter Customer ID: ");
+            if (scanner.hasNextInt()) {
+                ID = scanner.nextInt();
+                scanner.nextLine();
+                if (manager.customerMap.containsKey(ID)) {
+                    System.out.println("\nA Customer With This ID Already Exists.\n");
+                } else {
+                    return ID;
+                }
+            } else {
+                System.out.println("Invalid Customer ID. Please Try Again.");
+                scanner.nextLine();
+            }
+        }
+    }
+
     public static String getValidEmail() {
         Scanner scanner = new Scanner(System.in);
-        String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        final String EMAIL_PATTERN = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
         while(true) {
             System.out.print("Enter Customer Email: ");
             String email = scanner.nextLine();
-            Pattern pattern = Pattern.compile(emailPattern);
+            Pattern pattern = Pattern.compile(EMAIL_PATTERN);
             Matcher matcher = pattern.matcher(email);
 
             if(matcher.matches()) {
                 return email;
             } else {
                 System.out.println("Invalid Email. Please try again.");
+            }
+        }
+    }
+
+    public static String getValidString(String prompt, String promptError) {
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            final String IS_VALID = "[a-zA-Z]+";
+
+            System.out.print(prompt);
+            String input = scanner.nextLine();
+
+            if (input.matches(IS_VALID)) {
+                return input;
+            } else {
+                System.out.println(promptError);
             }
         }
     }
