@@ -44,11 +44,11 @@ public class Main extends CustomerManager {
         int ID = getValidID();
 
         String promtFirstName = "Enter Customer First Name: ";
-        String promptFirstNameError = "Invalid FirstName. Please Try Again.";
+        String promptFirstNameError = "Invalid first name.";
         String firstName = getValidString(promtFirstName, promptFirstNameError);
 
         String promptSurname = "Enter Customer Surname: ";
-        String promptSurnameError = "Invalid Surname. Please Try Again.";
+        String promptSurnameError = "Invalid surname. Please try again.";
         String lastName = getValidString(promptSurname, promptSurnameError);
 
         String email = getValidEmail();
@@ -61,7 +61,7 @@ public class Main extends CustomerManager {
     private static void removeCustomer(Scanner scanner, CustomerManager manager) {
         int ID;
         while (true) {
-            System.out.print("\nEnter The ID Of The Customer You Would Like To Remove: ");
+            System.out.print("\nEnter the ID of the customer you would like to remove: ");
             if (scanner.hasNextInt()) {
                 ID = scanner.nextInt();
                 scanner.nextLine();
@@ -70,11 +70,11 @@ public class Main extends CustomerManager {
                     manager.removeCustomer(ID);
                     break;
                 } else {
-                    System.out.println("\nA Customer With This ID Does Not Exist.");
+                    System.out.println("\nA customer with this ID does not exist.");
                     break;
                 }
             } else {
-                System.out.println("Invalid Input. Customer ID Must Be An Integer.");
+                System.out.println("Invalid input. Customer ID must be an integer.");
                 scanner.nextLine();
             }
         }
@@ -86,13 +86,13 @@ public class Main extends CustomerManager {
 
         int id;
         while(true) {
-            System.out.print("\nEnter The ID Of The Customer You Would Like To Update: ");
+            System.out.print("\nEnter the ID of the customer you would like to update: ");
             if (scanner.hasNextInt()) {
                 id = scanner.nextInt();
                 scanner.nextLine();
                 break;
             } else {
-                System.out.println("\nInvalid Input. Please enter an appropriate Customer ID.\n");
+                System.out.println("\nInvalid input. Please enter an appropriate customer ID.\n");
                 scanner.nextLine();
             }
         }
@@ -105,7 +105,7 @@ public class Main extends CustomerManager {
 
         String firstName = null;
         while(true) {
-            System.out.print("Enter Customer First Name: ");
+            System.out.print("Enter Customer First Name (leave blank to keep current): ");
             String input = scanner.nextLine();
 
             if(input.matches("[a-zA-Z]+")) {
@@ -115,13 +115,13 @@ public class Main extends CustomerManager {
                 firstName = existingCustomer.getFirstName();
                 break;
             } else {
-                System.out.println("Invalid FirstName. Please Try Again.");
+                System.out.println("Invalid First Name. Please Try Again.");
             }
         }
 
         String lastName = null;
         while(true) {
-            System.out.print("Enter Customer Surname: ");
+            System.out.print("Enter Customer Surname (leave blank to keep current): ");
             String input = scanner.nextLine();
 
             if(input.matches("[a-zA-Z]+")) {
@@ -131,20 +131,21 @@ public class Main extends CustomerManager {
                 lastName = existingCustomer.getLastName();
                 break;
             } else {
-                System.out.println("Invalid Surname. Please Try Again.");
+                System.out.println("Invalid surname. Please try again.");
             }
         }
         String email = null;
         while(true) {
-            System.out.print("Enter Customer Email: ");
+            System.out.print("Enter Customer Email (leave blank to keep current): ");
             email = scanner.nextLine();
 
             if(email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")){
                 break;
             } else if (email.isEmpty()) {
                 email = existingCustomer.getEmail();
+                break;
             } else {
-                System.out.println("Invalid Email. Please Try Again");
+                System.out.println("Invalid email. Please try again");
             }
         }
 
@@ -156,18 +157,17 @@ public class Main extends CustomerManager {
         Scanner scanner = new Scanner(System.in);
         int choice;
         while (true) {
-            System.out.print("Which Operation Would You Like To Perform (1/2/3/4/5): ");
+            System.out.print("Which operation would you like to perform (1/2/3/4/5): ");
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 scanner.nextLine();
                 return choice;
             } else {
-                System.out.println("\nInvalid Input. Please Enter An Appropriate Value.\n");
+                System.out.println("\nInvalid input. Please enter an appropriate value.\n");
                 scanner.nextLine();
             }
         }
     }
-
     public static int getValidID() {
 
         Scanner scanner = new Scanner(System.in);
@@ -180,12 +180,12 @@ public class Main extends CustomerManager {
                 ID = scanner.nextInt();
                 scanner.nextLine();
                 if (manager.customerMap.containsKey(ID)) {
-                    System.out.println("\nA Customer With This ID Already Exists.\n");
+                    System.out.println("\nA customer with this ID already exists.\n");
                 } else {
                     return ID;
                 }
             } else {
-                System.out.println("Invalid Customer ID. Please Try Again.");
+                System.out.println("Invalid customer ID. Please try again.");
                 scanner.nextLine();
             }
         }
@@ -220,7 +220,7 @@ public class Main extends CustomerManager {
             if(matcher.matches()) {
                 return email;
             } else {
-                System.out.println("Invalid Email. Please try again.");
+                System.out.println("Invalid email. Please try again.");
             }
         }
     }

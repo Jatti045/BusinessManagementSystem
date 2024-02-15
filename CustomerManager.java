@@ -14,8 +14,7 @@ public class CustomerManager {
 
     public void addCustomer(Customer addCustomer) {
         customerMap.put(addCustomer.getCustomerID(), addCustomer);
-        System.out.println();
-        System.out.println("Customer Successfully Added.");
+        System.out.println("\nCustomer Successfully Added.");
     }
 
     public void removeCustomer(int removeCustomer) {
@@ -26,8 +25,7 @@ public class CustomerManager {
     }
     public void updateCustomer(Customer updatedCustomer) {
         customerMap.put(updatedCustomer.getCustomerID(), updatedCustomer);
-        System.out.println();
-        System.out.println("Customer Updated Successfully.");
+        System.out.println("\nCustomer Updated Successfully.");
     }
 
     public void listCustomers() {
