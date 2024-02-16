@@ -2,13 +2,16 @@ public class Customer {
     private int customerID;
     private String firstName;
     private String lastName;
+    private String phone;
     private String email;
 
+
     //Constructor
-    public Customer(int customerID, String firstName, String lastName, String email) {
+    public Customer(int customerID, String firstName, String lastName, String phone, String email) {
         this.customerID = customerID;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phone = phone;
         this.email = email;
     }
 
@@ -25,9 +28,15 @@ public class Customer {
         return this.lastName;
     }
 
+    public String getPhoneNumber() {
+        return this.phone;
+    }
+
     public String getEmail(){
         return this.email;
     }
+
+
 
     //Setters
     public void setCustomerID(int customerID) {
@@ -42,16 +51,23 @@ public class Customer {
         this.lastName = lastName;
     }
 
+    public void setPhoneNumber(String phone) {
+        this.phone = phone;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
 
+
     @Override
     public String toString() {
-        return "Customer: " +
-                "ID='" + customerID + '\'' +
-                ", First Name='" + firstName + '\'' +
-                ", Surname='" + lastName + '\'' +
-                ", Email='" + email + '\'';
+        return "Customer: {" +
+                "ID='" + customerID + "', " +
+                "First Name='" + firstName + "', " +
+                "Surname='" + lastName + "', " +
+                "Phone='" + phone + "', " +
+                "Email='" + email + "'" +
+                '}';
     }
 }

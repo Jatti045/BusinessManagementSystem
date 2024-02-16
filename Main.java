@@ -44,16 +44,18 @@ public class Main extends CustomerManager {
         int ID = getValidID(manager);
 
         String promtFirstName = "Enter Customer First Name: ";
-        String promptFirstNameError = "Invalid first name.";
+        String promptFirstNameError = "The first name entered is not valid. Please try again.";
         String firstName = getValidString(promtFirstName, promptFirstNameError);
 
         String promptSurname = "Enter Customer Surname: ";
-        String promptSurnameError = "Invalid surname. Please try again.";
+        String promptSurnameError = "The surname entered is not valid. Please try again.";
         String lastName = getValidString(promptSurname, promptSurnameError);
+
+        String phone = getValidPhone();
 
         String email = getValidEmail();
 
-        Customer customer = new Customer(ID, firstName, lastName, email);
+        Customer customer = new Customer(ID, firstName, lastName, phone, email);
 
         manager.addCustomer(customer);
     }
@@ -74,7 +76,7 @@ public class Main extends CustomerManager {
                     break;
                 }
             } else {
-                System.out.println("Invalid input. Customer ID must be an integer.");
+                System.out.println("The input is incorrect. The Customer ID must be a whole number. Please enter a valid integer.");
                 scanner.nextLine();
             }
         }
@@ -92,7 +94,7 @@ public class Main extends CustomerManager {
                 scanner.nextLine();
                 break;
             } else {
-                System.out.println("\nInvalid input. Please enter an appropriate customer ID.\n");
+                System.out.println("\nThe input is incorrect. Please enter a valid customer ID.\n");
                 scanner.nextLine();
             }
         }
@@ -105,7 +107,7 @@ public class Main extends CustomerManager {
 
         String firstName = null;
         while(true) {
-            System.out.print("Enter Customer First Name (leave blank to keep current): ");
+            System.out.print("Enter Customer First Name (leave blank to keep current name): ");
             String input = scanner.nextLine();
 
             if(input.matches("[a-zA-Z]+")) {
@@ -115,13 +117,13 @@ public class Main extends CustomerManager {
                 firstName = existingCustomer.getFirstName();
                 break;
             } else {
-                System.out.println("Invalid First Name. Please Try Again.");
+                System.out.println("The first name entered is not valid. Please try again.");
             }
         }
 
         String lastName = null;
         while(true) {
-            System.out.print("Enter Customer Surname (leave blank to keep current): ");
+            System.out.print("Enter Customer Surname (leave blank to keep current surname): ");
             String input = scanner.nextLine();
 
             if(input.matches("[a-zA-Z]+")) {
@@ -131,12 +133,30 @@ public class Main extends CustomerManager {
                 lastName = existingCustomer.getLastName();
                 break;
             } else {
-                System.out.println("Invalid surname. Please try again.");
+                System.out.println("The surname entered is not valid. Please try again.");
             }
         }
+
+        String phone = null;
+        while(true) {
+            System.out.print("Enter Customer Phone number In The Format xxx-xxx-xxxx (leave blank to keep current phone number): ");
+            String input = scanner.nextLine();
+
+            if(input.matches("^\\d{3}-\\d{3}-\\d{4}$")){
+                phone = input;
+                break;
+            } else if (input.isEmpty()) {
+                phone = existingCustomer.getPhoneNumber();
+                break;
+            } else {
+                System.out.println("The phone number entered is invalid. Please enter a phone number in the correct format and try again.");
+            }
+        }
+
+
         String email = null;
         while(true) {
-            System.out.print("Enter Customer Email (leave blank to keep current): ");
+            System.out.print("Enter Customer Email (leave blank to keep current email): ");
             email = scanner.nextLine();
 
             if(email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")){
@@ -145,11 +165,11 @@ public class Main extends CustomerManager {
                 email = existingCustomer.getEmail();
                 break;
             } else {
-                System.out.println("Invalid email. Please try again");
+                System.out.println("The email address entered is invalid. Please enter a valid email address and try again.");
             }
         }
 
-        Customer updatedCustomer = new Customer(id, firstName, lastName, email);
+        Customer updatedCustomer = new Customer(id, firstName, lastName, phone, email);
         manager.updateCustomer(updatedCustomer);
     }
 
@@ -157,13 +177,13 @@ public class Main extends CustomerManager {
         Scanner scanner = new Scanner(System.in);
         int choice;
         while (true) {
-            System.out.print("Which operation would you like to perform (1/2/3/4/5): ");
+            System.out.print("Please select the operation you would like to perform by choosing a number from the following options (1, 2, 3, 4, 5): ");
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 scanner.nextLine();
                 return choice;
             } else {
-                System.out.println("\nInvalid input. Please enter an appropriate value.\n");
+                System.out.println("\nThe input provided is incorrect. Please enter a valid value.\n");
                 scanner.nextLine();
             }
         }
@@ -184,7 +204,7 @@ public class Main extends CustomerManager {
                     return ID;
                 }
             } else {
-                System.out.println("Invalid customer ID. Please try again.");
+                System.out.println("The customer ID entered is invalid. Please enter a correct customer ID and try again.");
                 scanner.nextLine();
             }
         }
@@ -206,6 +226,24 @@ public class Main extends CustomerManager {
         }
     }
 
+    public static String getValidPhone() {
+        Scanner scanner = new Scanner(System.in);
+        final String PHONE_PATTERN = "^\\d{3}-\\d{3}-\\d{4}$";
+
+        while(true) {
+            System.out.print("Enter Customer Phone Number In The Format xxx-xxx-xxxx: ");
+            String phone = scanner.nextLine();
+            Pattern pattern = Pattern.compile(PHONE_PATTERN);
+            Matcher matcher = pattern.matcher(phone);
+
+            if(matcher.matches()) {
+                return phone;
+            } else {
+                System.out.println("The phone number entered is invalid. Please enter a phone number in the correct format and try again.");
+            }
+        }
+    }
+
     public static String getValidEmail() {
         Scanner scanner = new Scanner(System.in);
         final String EMAIL_PATTERN = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -219,9 +257,8 @@ public class Main extends CustomerManager {
             if(matcher.matches()) {
                 return email;
             } else {
-                System.out.println("Invalid email. Please try again.");
+                System.out.println("The email address entered is invalid. Please enter a valid email address and try again.");
             }
         }
     }
-
 }
