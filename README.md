@@ -26,3 +26,6 @@ A Java-based console application demonstrating object-oriented programming skill
 1. Clone the repository:
    ```bash
    git clone https://github.com/Jatti045/BusinessManagementSystem.git
+2. Download gson-2.10.1.jar from the [Gson repository](https://github.com/google/gson/releases/tag/gson-parent-2.10.1).
+
+3. Add gson-2.10.1.jar to your project as a library.
